@@ -1,14 +1,21 @@
+
 import json
 import os
 import secrets
+import threading
 import uuid
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, UploadFile, File, Form, Depends, HTTPException
+from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
+import uvicorn
+
+# Telegram Bot instance import
+from aadi import bot
 
 ROOT = Path(__file__).resolve().parent
 DATA_FILE = Path(os.getenv("STORY_DATA_FILE", ROOT / "story_media.json"))
@@ -19,23 +26,44 @@ ADMIN_PASSWORD = os.getenv("WEB_ADMIN_PASSWORD", "")
 MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "30"))
 
 CHAPTERS = [
-    {"id":"place","title":"The Place That Changed My Life Forever","text":"The place that changed my life forever...\n\n📍 PLACE: “Shining Stars”"},
-    {"id":"meeting","title":"How Could We Meet?","text":"Some stories begin with a hello. Ours became my favourite story. ❤️\n\n🎧 Here are the two voice notes from that special memory."},
-    {"id":"yes","title":"The Beautiful “Yes” I'll Never Forget","text":"🗓 10th October · 7:17 PM\n\n“And my world changed forever.” ❤️"},
-    {"id":"moments","title":"The Moments That Became My Favourite Chapter","text":"• Your love and caring\n• Staying up late to talk to you\n• Roasting each other 😂\n\nThese little moments mean the world to me."},
-    {"id":"numbers","title":"Our Love In Numbers","text":"We could never explain our love in numbers...\n\nBecause some feelings are simply beyond counting. ♾️"},
-    {"id":"eyes","title":"Where Did I Get Lost?","text":"Where did I get lost?\n\nIn your eyes. 👀❤️"},
-    {"id":"stats","title":"❤️ Love Statistics","text":"Messages          1+\nLate Night Talks  Countless\nLaughter           ∞\nLove               ❤️ ∞\nMiss You           🥺 99999999999999+\nHugs               🤗 Loading...\nKisses             Loading...\nForever            ♾️ Confirmed"},
-    {"id":"scan","title":"Scanning Heart Database...","text":"[██████████] 100%\n\n❤️ RESULT ❤️\n\nCurrent Heart Owner: Samriddhi\nStatus: Permanent Access Granted ❤️\nNo Replacement Found."},
-    {"id":"speak","title":"If Love Could Speak...","text":"Even if I had a thousand lives,\nI would still search for you,\nFind you,\nFall for you,\nAnd choose you...\nAgain.\nAnd again.\nForever. ❤️"},
-    {"id":"shayari","title":"Final Shayari","text":"Some moments fade like passing clouds,\nOurs quietly built a home.\nOut of all the paths the world could take,\nYours is the one I call my own.\nThrough every quiet sunrise and midnight turn,\nIn a crowded room or under an open sky,\nThe world can rush all it wants—\nMy calm will always begin with you. ✨"},
-    {"id":"month","title":"One Month Of Our Relationship ❤️","text":"One month of our relationship will be completed. ❤️\n\nThank you for every smile.\nEvery memory.\nEvery moment.\nEvery piece of love.\n\nI love you.\nForever."},
-    {"id":"ending","title":"Successfully Connected","text":"Connection Lost...\n⬇️ Searching New Heart Owner...\n❌ No Better Person Found.\n⬇️ Reconnecting...\n\n██████████ 100%\n\n❤️ Successfully Connected To\n\nSamriddhi\n\nForever ♾️"},
+    {"id": "place", "title": "The Place That Changed My Life Forever", "text": "The place that changed my life forever...\n\n📍 PLACE: “Shining Stars”"},
+    {"id": "meeting", "title": "How Could We Meet?", "text": "Some stories begin with a hello. Ours became my favourite story. ❤️\n\n🎧 Here are the two voice notes from that special memory."},
+    {"id": "yes", "title": "The Beautiful “Yes” I'll Never Forget", "text": "🗓 10th October · 7:17 PM\n\n“And my world changed forever.” ❤️"},
+    {"id": "moments", "title": "The Moments That Became My Favourite Chapter", "text": "• Your love and caring\n• Staying up late to talk to you\n• Roasting each other 😂\n\nThese little moments mean the world to me."},
+    {"id": "numbers", "title": "Our Love In Numbers", "text": "We could never explain our love in numbers...\n\nBecause some feelings are simply beyond counting. ♾️"},
+    {"id": "eyes", "title": "Where Did I Get Lost?", "text": "Where did I get lost?\n\nIn your eyes. 👀❤️"},
+    {"id": "stats", "title": "❤️ Love Statistics", "text": "Messages          1+\nLate Night Talks  Countless\nLaughter           ∞\nLove               ❤️ ∞\nMiss You           🥺 99999999999999+\nHugs               🤗 Loading...\nKisses             Loading...\nForever            ♾️ Confirmed"},
+    {"id": "scan", "title": "Scanning Heart Database...", "text": "[██████████] 100%\n\n❤️ RESULT ❤️\n\nCurrent Heart Owner: Samriddhi\nStatus: Permanent Access Granted ❤️\nNo Replacement Found."},
+    {"id": "speak", "title": "If Love Could Speak...", "text": "Even if I had a thousand lives,\nI would still search for you,\nFind you,\nFall for you,\nAnd choose you...\nAgain.\nAnd again.\nForever. ❤️"},
+    {"id": "shayari", "title": "Final Shayari", "text": "Some moments fade like passing clouds,\nOurs quietly built a home.\nOut of all the paths the world could take,\nYours is the one I call my own.\nThrough every quiet sunrise and midnight turn,\nIn a crowded room or under an open sky,\nThe world can rush all it wants—\nMy calm will always begin with you. ✨"},
+    {"id": "month", "title": "One Month Of Our Relationship ❤️", "text": "One month of our relationship will be completed. ❤️\n\nThank you for every smile.\nEvery memory.\nEvery moment.\nEvery piece of love.\n\nI love you.\nForever."},
+    {"id": "ending", "title": "Successfully Connected", "text": "Connection Lost...\n⬇️ Searching New Heart Owner...\n❌ No Better Person Found.\n⬇️ Reconnecting...\n\n██████████ 100%\n\n❤️ Successfully Connected To\n\nSamriddhi\n\nForever ♾️"},
 ]
 SURPRISE_KEY = "__surprise__"
 
-app = FastAPI(title="Our Story ❤️")
+
+def run_telegram_bot():
+    """Bot polling in background daemon thread"""
+    print("Telegram bot polling thread starting...")
+    try:
+        bot.infinity_polling(skip_pending=True)
+    except Exception as e:
+        print(f"Telegram Bot polling error: {e}")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Web server ke saath bot thread start hoga
+    bot_thread = threading.Thread(target=run_telegram_bot, daemon=True)
+    bot_thread.start()
+    print("Telegram bot polling started successfully in background.")
+    yield
+    print("Stopping application...")
+
+
+app = FastAPI(title="Our Story ❤️", lifespan=lifespan)
 security = HTTPBasic()
+
 
 def load_db():
     try:
@@ -44,11 +72,13 @@ def load_db():
     except (FileNotFoundError, json.JSONDecodeError, OSError):
         return {}
 
+
 def save_db(data):
     DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
     tmp = DATA_FILE.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
     os.replace(tmp, DATA_FILE)
+
 
 def require_admin(credentials: HTTPBasicCredentials = Depends(security)):
     if not ADMIN_PASSWORD:
@@ -56,9 +86,13 @@ def require_admin(credentials: HTTPBasicCredentials = Depends(security)):
     valid_user = secrets.compare_digest(credentials.username.encode(), ADMIN_USER.encode())
     valid_pass = secrets.compare_digest(credentials.password.encode(), ADMIN_PASSWORD.encode())
     if not (valid_user and valid_pass):
-        raise HTTPException(status_code=401, detail="Incorrect admin username or password.",
-                            headers={"WWW-Authenticate": "Basic"})
+        raise HTTPException(
+            status_code=401,
+            detail="Incorrect admin username or password.",
+            headers={"WWW-Authenticate": "Basic"}
+        )
     return True
+
 
 def public_item(item):
     result = {"kind": item.get("kind", "unknown"), "caption": item.get("caption", "")}
@@ -66,8 +100,8 @@ def public_item(item):
         path = Path(item["local_path"])
         if path.exists():
             result["url"] = "/uploads/" + path.name
-    # Telegram file_id media can only be displayed inside Telegram, not directly in a browser.
     return result
+
 
 @app.get("/api/story")
 def get_story():
@@ -79,19 +113,21 @@ def get_story():
         "name": os.getenv("GIRLFRIEND_NAME", "Samriddhi"),
         "chapters": CHAPTERS,
         "media": media,
-        "surprise_key": SURPRISE_KEY
+        "surprise_key": SURPRISE_KEY,
     }
+
 
 @app.get("/api/admin/check")
 def admin_check(_=Depends(require_admin)):
     return {"ok": True}
+
 
 @app.post("/api/admin/upload")
 async def upload_media(
     chapter_id: str = Form(...),
     caption: str = Form(""),
     file: UploadFile = File(...),
-    _=Depends(require_admin)
+    _=Depends(require_admin),
 ):
     valid_ids = {c["id"] for c in CHAPTERS} | {SURPRISE_KEY, "__hug_stickers__"}
     if chapter_id not in valid_ids:
@@ -121,6 +157,7 @@ async def upload_media(
     save_db(db)
     return {"ok": True, "kind": kind, "filename": safe_name}
 
+
 @app.post("/api/admin/text")
 def add_surprise_text(text: str = Form(...), _=Depends(require_admin)):
     if not text.strip():
@@ -130,6 +167,7 @@ def add_surprise_text(text: str = Form(...), _=Depends(require_admin)):
     save_db(db)
     return {"ok": True}
 
+
 @app.post("/api/admin/clear")
 def clear_chapter(chapter_id: str = Form(...), _=Depends(require_admin)):
     db = load_db()
@@ -137,13 +175,21 @@ def clear_chapter(chapter_id: str = Form(...), _=Depends(require_admin)):
     save_db(db)
     return {"ok": True}
 
+
 app.mount("/uploads", StaticFiles(directory=str(UPLOAD_DIR)), name="uploads")
 app.mount("/static", StaticFiles(directory=str(ROOT / "static")), name="static")
+
 
 @app.get("/")
 def home():
     return FileResponse(ROOT / "static" / "index.html")
 
+
 @app.get("/admin")
 def admin_page():
     return FileResponse(ROOT / "static" / "admin.html")
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
