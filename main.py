@@ -1,4 +1,3 @@
-
 import json
 import os
 import secrets
@@ -6,16 +5,12 @@ import threading
 import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
-from typing import Optional
 
 from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import FileResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.staticfiles import StaticFiles
 import uvicorn
-
-# Telegram Bot instance import
-from aadi import bot
 
 ROOT = Path(__file__).resolve().parent
 DATA_FILE = Path(os.getenv("STORY_DATA_FILE", ROOT / "story_media.json"))
@@ -42,23 +37,23 @@ CHAPTERS = [
 SURPRISE_KEY = "__surprise__"
 
 
-def run_telegram_bot():
-    """Bot polling in background daemon thread"""
-    print("Telegram bot polling thread starting...")
+def start_bot_worker():
+    """Bot polling safe worker"""
     try:
+        from aadi import bot
+        print("Telegram bot instance found. Starting polling...")
         bot.infinity_polling(skip_pending=True)
     except Exception as e:
-        print(f"Telegram Bot polling error: {e}")
+        print(f"Error while running Telegram Bot: {e}")
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Web server ke saath bot thread start hoga
-    bot_thread = threading.Thread(target=run_telegram_bot, daemon=True)
-    bot_thread.start()
-    print("Telegram bot polling started successfully in background.")
+    # App start hote hi bot daemon thread me initiate hoga
+    t = threading.Thread(target=start_bot_worker, daemon=True)
+    t.start()
+    print("Bot worker thread launched.")
     yield
-    print("Stopping application...")
 
 
 app = FastAPI(title="Our Story ❤️", lifespan=lifespan)
@@ -192,4 +187,4 @@ def admin_page():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
+    uvicorn.run(app, host="0.0.0.0", port=port)
