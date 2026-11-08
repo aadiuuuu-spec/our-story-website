@@ -1,44 +1,263 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#210b19"><title>Our Story ❤️</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#210b19">
+
+    <title>Our Story ❤️</title>
+
+    <!-- Cinematic Loader CSS -->
+    <link rel="stylesheet" href="/static/loader.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main Website CSS -->
+    <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
-<div class="ambient"></div>
-<header class="topbar"><a class="brand" href="/">♡ OUR STORY</a><a class="toplink" href="/admin">Owner panel ↗</a></header>
-<main>
-<section class="hero" id="home">
-  <div class="eyebrow">A LITTLE UNIVERSE, MADE WITH LOVE</div>
-  <div class="hero-heart">♡</div>
-  <h1>Hey, <span id="name">Samriddhi</span> <span class="butterfly">🦋</span></h1>
-  <p class="hero-copy">Some moments become memories.<br>Some people become your whole world.</p>
-  <button class="primary" id="openStory">Open our memories <span>♡</span></button>
-  <div class="scroll-note">TAKE YOUR TIME · EVERY PAGE IS FOR YOU</div>
-</section>
-<section class="story-section" id="story">
-  <div class="section-head"><span class="eyebrow">CHAPTERS OF US</span><h2>Our little forever</h2><p>Every page holds a piece of us.</p></div>
-  <div class="layout">
-    <nav class="chapter-nav" id="chapterNav"></nav>
-    <article class="chapter-card">
-      <div class="chapter-count" id="chapterCount">CHAPTER 01</div>
-      <div class="mini-heart">୨♡୧</div>
-      <h2 id="chapterTitle">The Place That Changed My Life Forever</h2>
-      <p class="chapter-text" id="chapterText"></p>
-      <div id="chapterMedia" class="media-grid"></div>
-      <div class="chapter-actions"><button class="secondary" id="prev">← Back</button><button class="primary small" id="next">Next page ♡</button></div>
-    </article>
-  </div>
-</section>
-<section class="surprise-section">
-  <div class="surprise-card"><div class="eyebrow">JUST ONE MORE THING</div><div class="big-heart">♥</div>
-  <h2>A little surprise</h2><p>A tiny secret, saved just for you.</p>
-  <button class="primary" id="surpriseBtn">Open my surprise ✨</button><div id="surpriseContent" class="surprise-content"></div></div>
-</section>
-<footer>MADE WITH LOVE, JUST FOR YOU <span>♡</span></footer>
-</main>
-<script src="/static/app.js"></script>
-</body></html>
+
+    <!-- ================================= -->
+    <!-- CINEMATIC ROMANTIC LOADING SCREEN -->
+    <!-- ================================= -->
+
+    <div id="story-loader">
+
+        <div class="loader-glow"></div>
+
+        <div class="loader-heart">❤️</div>
+
+        <div class="loader-title">
+            OUR STORY
+        </div>
+
+        <div class="loader-subtitle">
+            A beautiful story of two hearts
+        </div>
+
+        <div class="loader-progress">
+            <div class="loader-progress-fill"></div>
+        </div>
+
+        <div class="loader-loading-text">
+            PREPARING YOUR MEMORIES...
+        </div>
+
+    </div>
+
+
+    <!-- Ambient Background -->
+    <div class="ambient"></div>
+
+
+    <!-- ================================= -->
+    <!-- HEADER -->
+    <!-- ================================= -->
+
+    <header class="topbar">
+
+        <a class="brand" href="/">
+            ♡ OUR STORY
+        </a>
+
+        <a class="toplink" href="/admin">
+            Owner panel ↗
+        </a>
+
+    </header>
+
+
+    <main>
+
+        <!-- ================================= -->
+        <!-- HERO SECTION -->
+        <!-- ================================= -->
+
+        <section class="hero" id="home">
+
+            <div class="eyebrow">
+                A LITTLE UNIVERSE, MADE WITH LOVE
+            </div>
+
+            <div class="hero-heart">
+                ♡
+            </div>
+
+            <h1>
+                Hey,
+                <span id="name">Samriddhi</span>
+                <span class="butterfly">🦋</span>
+            </h1>
+
+            <p class="hero-copy">
+                Some moments become memories.<br>
+                Some people become your whole world.
+            </p>
+
+            <button class="primary" id="openStory">
+                Open our memories
+                <span>♡</span>
+            </button>
+
+            <div class="scroll-note">
+                TAKE YOUR TIME · EVERY PAGE IS FOR YOU
+            </div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- STORY CHAPTERS -->
+        <!-- ================================= -->
+
+        <section class="story-section" id="story">
+
+            <div class="section-head">
+
+                <span class="eyebrow">
+                    CHAPTERS OF US
+                </span>
+
+                <h2>
+                    Our little forever
+                </h2>
+
+                <p>
+                    Every page holds a piece of us.
+                </p>
+
+            </div>
+
+
+            <div class="layout">
+
+                <!-- Chapter Navigation -->
+                <nav
+                    class="chapter-nav"
+                    id="chapterNav">
+                </nav>
+
+
+                <!-- Chapter Content -->
+                <article class="chapter-card">
+
+                    <div
+                        class="chapter-count"
+                        id="chapterCount">
+                        CHAPTER 01
+                    </div>
+
+                    <div class="mini-heart">
+                        ୨♡୧
+                    </div>
+
+                    <h2 id="chapterTitle">
+                        The Place That Changed My Life Forever
+                    </h2>
+
+                    <p
+                        class="chapter-text"
+                        id="chapterText">
+                    </p>
+
+                    <!-- Photos / Videos -->
+                    <div
+                        id="chapterMedia"
+                        class="media-grid">
+                    </div>
+
+
+                    <!-- Chapter Navigation Buttons -->
+                    <div class="chapter-actions">
+
+                        <button
+                            class="secondary"
+                            id="prev">
+                            ← Back
+                        </button>
+
+                        <button
+                            class="primary small"
+                            id="next">
+                            Next page ♡
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================= -->
+        <!-- SURPRISE SECTION -->
+        <!-- ================================= -->
+
+        <section class="surprise-section">
+
+            <div class="surprise-card">
+
+                <div class="eyebrow">
+                    JUST ONE MORE THING
+                </div>
+
+                <div class="big-heart">
+                    ♥
+                </div>
+
+                <h2>
+                    A little surprise
+                </h2>
+
+                <p>
+                    A tiny secret, saved just for you.
+                </p>
+
+                <button
+                    class="primary"
+                    id="surpriseBtn">
+                    Open my surprise ✨
+                </button>
+
+                <div
+                    id="surpriseContent"
+                    class="surprise-content">
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================================= -->
+    <!-- FOOTER -->
+    <!-- ================================= -->
+
+    <footer>
+        MADE WITH LOVE, JUST FOR YOU
+        <span>♡</span>
+    </footer>
+
+
+    <!-- ================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ================================= -->
+
+    <!-- Cinematic Loader -->
+    <script src="/static/loader.js"></script>
+
+    <!-- Existing Website Functionality -->
+    <script src="/static/app.js"></script>
+
+</body>
+</html>
