@@ -1,0 +1,34 @@
+/* OUR STORY premium add-on */
+:root{--os-pink:#ff6fae;--os-gold:#ffd58a;--os-ink:#fff5f8}
+#hero h1,#hero h2,#story h1,#story h2,#chapterTitle{
+font-family:"Playfair Display",Georgia,serif!important;letter-spacing:.035em;line-height:1.12;
+background:linear-gradient(100deg,#fff7fb 8%,#ff9fc8 42%,#ffe3a9 70%,#fff7fb 92%);
+background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent!important;
+animation:os-shimmer 7s ease-in-out infinite;text-wrap:balance}
+#chapterText,#story p,#hero p{font-family:"Cormorant Garamond",Georgia,serif!important;
+font-size:clamp(1.12rem,3.8vw,1.4rem);line-height:1.8;letter-spacing:.012em;color:#ffeaf2;text-wrap:pretty}
+#chapterText{white-space:pre-line}
+.os-kicker{display:inline-flex;gap:.55rem;color:var(--os-gold);text-transform:uppercase;
+letter-spacing:.24em;font:700 .68rem/1.4 system-ui,sans-serif;margin-bottom:.8rem}
+.os-kicker:before,.os-kicker:after{content:"✦";color:var(--os-pink)}
+.os-enter{animation:os-enter .7s cubic-bezier(.2,.8,.2,1) both}
+.os-scan{margin:1rem 0;padding:1rem;border:1px solid #a94b78;border-radius:18px;
+background:rgba(13,4,15,.82);color:#ffe7f0;font:.82rem/1.7 ui-monospace,monospace;
+box-shadow:0 0 30px #ff2f8720}
+.os-scan .bar{height:7px;overflow:hidden;border-radius:20px;background:#482137;margin:.7rem 0}
+.os-scan .fill{height:100%;width:0;border-radius:20px;background:linear-gradient(90deg,#ff4f9c,#ffd58a);
+box-shadow:0 0 15px #ff4f9c;transition:width .2s linear}
+.os-scan .percent{color:var(--os-gold);float:right}
+.os-heart-burst{position:fixed;z-index:9999;pointer-events:none;font-size:20px;
+animation:os-burst 1.15s ease-out forwards;filter:drop-shadow(0 0 8px #ff5c9e)}
+.os-secret{position:fixed;inset:0;z-index:9998;display:grid;place-items:center;padding:24px;
+background:#0a020cf2;backdrop-filter:blur(16px);text-align:center}
+.os-secret-card{max-width:440px;padding:28px;border:1px solid #ff80b6;border-radius:26px;
+background:linear-gradient(145deg,#39102b,#130711);box-shadow:0 0 70px #ff2f8740}
+.os-secret-card h2{color:#ffacd0;font:700 clamp(2rem,8vw,3rem) "Playfair Display",serif}
+.os-secret-card p{color:#ffeaf2;font:1.2rem/1.7 "Cormorant Garamond",serif}
+.os-secret-card button{border:1px solid #ff9ac5;color:white;background:#a92763;padding:11px 22px;border-radius:99px}
+@keyframes os-shimmer{0%,100%{background-position:0% center}50%{background-position:100% center}}
+@keyframes os-enter{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes os-burst{0%{opacity:1;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.8) rotate(35deg)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important}}
