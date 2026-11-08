@@ -1,0 +1,134 @@
+
+/* OUR STORY - Cinematic Loader */
+
+#story-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at center, #351225 0%, #170914 48%, #08060c 100%);
+    color: white;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 1.2s ease, visibility 1.2s ease;
+}
+
+#story-loader.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-glow {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    background: #ff2f75;
+    filter: blur(120px);
+    opacity: .22;
+    border-radius: 50%;
+    animation: glow 3s ease-in-out infinite alternate;
+}
+
+.loader-heart {
+    font-size: 76px;
+    filter: drop-shadow(0 0 15px #ff3d83);
+    animation: heartbeat 1.2s infinite;
+    z-index: 2;
+}
+
+.loader-title {
+    margin-top: 25px;
+    font-family: Georgia, serif;
+    font-size: clamp(30px, 8vw, 46px);
+    letter-spacing: 5px;
+    text-align: center;
+    color: #fff1f6;
+    text-shadow: 0 0 20px #ff4d8d;
+    animation: reveal 1.8s ease both;
+    z-index: 2;
+}
+
+.loader-subtitle {
+    margin-top: 12px;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #eeb5ca;
+    text-transform: uppercase;
+    z-index: 2;
+}
+
+.loader-progress {
+    width: min(250px, 65vw);
+    height: 3px;
+    background: #ffffff20;
+    border-radius: 20px;
+    margin-top: 38px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.loader-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #ff4d88, #ffd1df);
+    box-shadow: 0 0 15px #ff4d88;
+    animation: progress 2.8s ease forwards;
+}
+
+.loader-loading-text {
+    margin-top: 14px;
+    color: #dba9bd;
+    font-size: 11px;
+    letter-spacing: 3px;
+    z-index: 2;
+}
+
+.rose-petal {
+    position: absolute;
+    top: -30px;
+    color: #ff75a5;
+    opacity: .65;
+    animation: falling linear infinite;
+    pointer-events: none;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.2); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.13); }
+}
+
+@keyframes glow {
+    from { transform: scale(.8); opacity: .12; }
+    to { transform: scale(1.2); opacity: .3; }
+}
+
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(25px); filter: blur(8px); }
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes progress {
+    to { width: 100%; }
+}
+
+@keyframes falling {
+    to {
+        transform: translate3d(80px, 110vh, 0) rotate(600deg);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #story-loader, #story-loader * {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
