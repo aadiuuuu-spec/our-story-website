@@ -516,45 +516,10 @@ async def show_chapter(
         if HUG_STICKERS_AT_END:
             await send_hug_stickers(chat_id, context)
     elif chapter["id"] == "ending":
-        # A cinematic, fictional search animation (no real user search is performed).
-        search_header = story_header("Heart Owner Search")
-        progress_message = await context.bot.send_message(
-            chat_id,
-            search_header
-            + "⚠️ Connection Lost...\n"
-            "🔍 Initializing Heart Search...\n"
-            "Connecting to the Heart Database...\n"
-            "□□□□□□□□□□ 0%\n\n"
-            "Please wait...",
+        # Present the final chapter directly; do not simulate a network outage or search.
+        await reveal_page(
+            chat_id, context, chapter["title"], chapter["text"], index, markup
         )
-        search_steps = [
-            (8,  "🔍 Searching for a New Heart Owner..."),
-            (17, "🌐 Connecting to the Memory Network..."),
-            (29, "💗 Searching 1,000,000+ Heart Records..."),
-            (41, "🔎 Matching Heart Signals..."),
-            (56, "🧩 Comparing Love Compatibility..."),
-            (63, "📡 Checking Emotional Connections..."),
-            (78, "🛡️ Verifying the Best Possible Match..."),
-            (91, "💞 Almost Done — Final Match Verification..."),
-            (100, "✅ Search Completed."),
-        ]
-        for percent, status in search_steps:
-            filled = percent // 10
-            bar = "█" * filled + "□" * (10 - filled)
-            await asyncio.sleep(0.7)
-            await safe_edit(progress_message, search_header + f"{status}\n{bar} {percent}%")
-
-        await asyncio.sleep(0.5)
-        ending_text = (
-            "❌ No Better Person Found.\n"
-            "❤️ Previous Heart Owner Detected...\n"
-            f"🔄 Reconnecting To {GIRLFRIEND_NAME}...\n\n"
-            "██████████ 100%\n\n"
-            "❤️ Successfully Connected To\n\n"
-            f"{GIRLFRIEND_NAME}\n\n"
-            "Forever ♾️"
-        )
-        await reveal_page(chat_id, context, "Successfully Connected", ending_text, index, markup)
     else:
         # Each page is a new message; earlier memories remain visible.
         await reveal_page(chat_id, context, chapter["title"], chapter["text"], index, markup)
