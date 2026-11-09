@@ -98,14 +98,14 @@
         const percent = scan.querySelector(".percent");
 
         const steps = [
-            [7, "Waking up old memories..."],
-            [18, "Checking tiny moments..."],
-            [32, "Reading the unsent smiles..."],
-            [46, "Verifying heart signals..."],
-            [61, "Matching unforgettable memories..."],
-            [78, "Checking forever access..."],
-            [92, "Almost found the answer..."],
-            [100, "MATCH FOUND // ONE NAME ONLY"]
+            [7, "Gathering little moments..."],
+            [18, "Remembering shared smiles..."],
+            [32, "Saving the sweetest memories..."],
+            [46, "Keeping every promise close..."],
+            [61, "Celebrating the story so far..."],
+            [78, "A thousand reasons, one feeling..."],
+            [92, "The answer has always been clear..."],
+            [100, "YOU ARE MY FAVOURITE PERSON ✨"]
         ];
 
         for (const [value, message] of steps) {
@@ -119,7 +119,7 @@
         }
 
         status.textContent =
-            "SAMRIDDHI ❤️ — Permanent place in this story.";
+            "A LITTLE FOREVER — written with love. ❤️";
     }
 
     function updateChapter() {
@@ -148,10 +148,7 @@
             (heading + " " + chapterText).toLowerCase();
 
         if (
-            searchText.includes("scan") ||
-            searchText.includes("search") ||
-            searchText.includes("database") ||
-            searchText.includes("heart owner")
+            searchText.includes("heart database")
         ) {
             heartScan();
         } else {
