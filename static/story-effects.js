@@ -148,7 +148,8 @@
             (heading + " " + chapterText).toLowerCase();
 
         if (
-            searchText.includes("heart database")
+            searchText.includes("heart database") ||
+            searchText.includes("heart keeps choosing")
         ) {
             heartScan();
         } else {
