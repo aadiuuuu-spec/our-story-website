@@ -9,7 +9,7 @@ Termux setup:
     export BOT_TOKEN="YOUR_BOT_TOKEN"
     export OWNER_ID="YOUR_NUMERIC_TELEGRAM_USER_ID"
     export GIRLFRIEND_NAME="Samriddhi"
-    python main.py
+    python aadi.py
 
 Admin:
     Send /admin to the bot from the OWNER_ID account.
@@ -404,8 +404,9 @@ def admin_keyboard() -> InlineKeyboardMarkup:
 async def send_media_item(chat_id: int, item: dict[str, str], context: ContextTypes.DEFAULT_TYPE, reply_markup=None) -> None:
     kind = item.get("kind")
     file_id = item.get("file_id")
-    media = item.get("local_path") or file_id
+    local_path = item.get("local_path")
     caption = item.get("caption", "")
+
     if kind == "text":
         try:
             await context.bot.send_message(
@@ -414,25 +415,41 @@ async def send_media_item(chat_id: int, item: dict[str, str], context: ContextTy
         except Exception:
             log.exception("Unable to send saved text item.")
         return
-    if not media:
+
+    if not local_path and not file_id:
         return
+
     try:
-        if kind == "photo":
-            await context.bot.send_photo(chat_id, media, caption=caption or None, reply_markup=reply_markup)
-        elif kind == "video":
-            await context.bot.send_video(chat_id, media, caption=caption or None, reply_markup=reply_markup)
-        elif kind == "audio":
-            await context.bot.send_audio(chat_id, media, caption=caption or None, reply_markup=reply_markup)
-        elif kind == "voice":
-            await context.bot.send_voice(chat_id, media, caption=caption or None, reply_markup=reply_markup)
-        elif kind == "animation":
-            await context.bot.send_animation(chat_id, media, caption=caption or None, reply_markup=reply_markup)
-        elif kind == "document":
-            await context.bot.send_document(chat_id, media, caption=caption or None, reply_markup=reply_markup)
-        elif kind == "sticker":
-            await context.bot.send_sticker(chat_id, media, reply_markup=reply_markup)
+        # PTB treats strings as Telegram file IDs or URLs, not local filesystem paths.
+        # Open website-uploaded files as binary streams before sending them.
+        if local_path:
+            with open(local_path, "rb") as media_file:
+                await _send_telegram_media(
+                    chat_id, kind, media_file, caption, reply_markup, context
+                )
+        else:
+            await _send_telegram_media(
+                chat_id, kind, file_id, caption, reply_markup, context
+            )
     except Exception:
         log.exception("Unable to send saved media item (%s).", kind)
+
+
+async def _send_telegram_media(chat_id, kind, media, caption, reply_markup, context):
+    if kind == "photo":
+        await context.bot.send_photo(chat_id, media, caption=caption or None, reply_markup=reply_markup)
+    elif kind == "video":
+        await context.bot.send_video(chat_id, media, caption=caption or None, reply_markup=reply_markup)
+    elif kind == "audio":
+        await context.bot.send_audio(chat_id, media, caption=caption or None, reply_markup=reply_markup)
+    elif kind == "voice":
+        await context.bot.send_voice(chat_id, media, caption=caption or None, reply_markup=reply_markup)
+    elif kind == "animation":
+        await context.bot.send_animation(chat_id, media, caption=caption or None, reply_markup=reply_markup)
+    elif kind == "document":
+        await context.bot.send_document(chat_id, media, caption=caption or None, reply_markup=reply_markup)
+    elif kind == "sticker":
+        await context.bot.send_sticker(chat_id, media, reply_markup=reply_markup)
 
 
 async def send_hug_stickers(chat_id: int, context: ContextTypes.DEFAULT_TYPE) -> None:
