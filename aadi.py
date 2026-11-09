@@ -417,8 +417,42 @@ async def show_chapter(
     chapter = CHAPTERS[index]
     markup = story_keyboard(index)
 
-    # Show the rewritten love letter directly; no simulated database scan.
-    if chapter["id"] == "stats":
+    # Keep the pretty heart-search animation, but make it a romantic search
+    # rather than a fake connection-loss/reconnect sequence.
+    if chapter["id"] == "scan":
+        progress_message = await context.bot.send_message(
+            chat_id,
+            story_header(chapter["title"])
+            + "♡ HEART DATABASE // PRIVATE ARCHIVE ♡\n\n"
+            + "Preparing a little search through my favourite memories...\n\n"
+            + "［□□□□□□□□□□］ 0%\n"
+            + "Finding the moments that make me smile... ✨",
+        )
+        stages = [
+            (18, "Gathering our little moments..."),
+            (36, "Remembering your sweetest smiles..."),
+            (54, "Checking all the reasons I adore you..."),
+            (72, "Saving our favourite memories..."),
+            (90, "One name keeps appearing... ❤️"),
+            (100, "MATCH FOUND // SAMRIDDHI ♡"),
+        ]
+        for percent, message in stages:
+            filled = percent // 10
+            bar = "▰" * filled + "▱" * (10 - filled)
+            await asyncio.sleep(0.65)
+            await safe_edit(
+                progress_message,
+                story_header(chapter["title"])
+                + "♡ HEART DATABASE // PRIVATE ARCHIVE ♡\n\n"
+                + f"{message}\n\n［{bar}］ {percent}%"
+            )
+        await asyncio.sleep(0.7)
+        await safe_edit(
+            progress_message,
+            story_frame(chapter["title"], style_text(chapter["text"]), index + 1, len(CHAPTERS)),
+            markup,
+        )
+    elif chapter["id"] == "stats":
         progress_message = await context.bot.send_message(
             chat_id, story_header(chapter["title"]) + "Loading..."
         )
