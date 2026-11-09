@@ -30,7 +30,7 @@ function show(i) {
   document.querySelectorAll(".nav-chapter").forEach((b,n)=>b.classList.toggle("active",n===current));
   $("prev").disabled = current===0;
   $("next").textContent = current===storyData.chapters.length-1 ? "Read again ↻" : "Next page ♡";
-  $("chapter").scrollIntoView({behavior:"smooth",block:"center"});
+  $("chapterTitle").scrollIntoView({behavior:"smooth",block:"center"});
 }
 $("openStory").addEventListener("click",()=>{ $("story").scrollIntoView({behavior:"smooth"}); show(0); });
 $("prev").addEventListener("click",()=>show(current-1));
