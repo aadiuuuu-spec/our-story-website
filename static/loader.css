@@ -1,5 +1,7 @@
 
 /* OUR STORY - Cinematic Loader */
+html, body { background: #120810; }
+body { margin: 0; }
 
 #story-loader {
     position: fixed;
