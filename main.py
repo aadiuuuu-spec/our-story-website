@@ -1,9 +1,7 @@
 import json
 import os
 import secrets
-import threading
 import uuid
-from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
@@ -37,26 +35,7 @@ CHAPTERS = [
 SURPRISE_KEY = "__surprise__"
 
 
-def start_bot_worker():
-    """Bot polling safe worker"""
-    try:
-        from aadi import bot
-        print("Telegram bot instance found. Starting polling...")
-        bot.infinity_polling(skip_pending=True)
-    except Exception as e:
-        print(f"Error while running Telegram Bot: {e}")
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # App start hote hi bot daemon thread me initiate hoga
-    t = threading.Thread(target=start_bot_worker, daemon=True)
-    t.start()
-    print("Bot worker thread launched.")
-    yield
-
-
-app = FastAPI(title="Our Story ❤️", lifespan=lifespan)
+app = FastAPI(title="Our Story ❤️")
 security = HTTPBasic()
 
 
@@ -91,6 +70,8 @@ def require_admin(credentials: HTTPBasicCredentials = Depends(security)):
 
 def public_item(item):
     result = {"kind": item.get("kind", "unknown"), "caption": item.get("caption", "")}
+    if item.get("kind") == "text":
+        result["text"] = item.get("text", "")
     if item.get("local_path"):
         path = Path(item["local_path"])
         if path.exists():
