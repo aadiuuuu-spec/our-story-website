@@ -71,7 +71,29 @@ In Telegram, send `/start` to the bot. Send `/admin` from the account whose ID i
 ### Termux tip
 Use two Termux sessions: keep `uvicorn ...` running in the first session and `python aadi.py` running in the second. Do not close either session while you want the website/bot online.
 
-## 6. Put it online for everyone
+## 6. Deploy website and bot together on Railway
+
+This repository now includes `railway.json` and `start.sh`. Railway starts the Telegram bot in the background and keeps the FastAPI website in the foreground, so both run in **one Railway service** and share the same files.
+
+1. In Railway, open the project connected to this GitHub repository and use one service for this repository.
+2. In that service, open **Variables** and add:
+   - `BOT_TOKEN` = your BotFather token
+   - `OWNER_ID` = your numeric Telegram user ID
+   - `GIRLFRIEND_NAME` = `Samriddhi`
+   - `WEB_ADMIN_USER` = `admin`
+   - `WEB_ADMIN_PASSWORD` = a strong private password
+   - `STORY_DATA_FILE` = `/data/story_media.json`
+   - `STORY_UPLOAD_DIR` = `/data/uploads`
+3. Open **Volumes** and add a persistent volume mounted at `/data`. This is important: without a persistent volume, uploaded photos/videos and the story database can disappear when Railway redeploys the service.
+4. In **Settings → Deploy**, leave the custom start command empty so Railway uses the repository's `railway.json` start command (`sh start.sh`). If a custom command is already set, replace it with `sh start.sh`.
+5. Redeploy the service. Open its public domain for the website. The bot should also come online; send it `/start` in Telegram.
+6. Check **Deployments → View Logs**. You should see both “Our Story bot is running” and “Starting Our Story website”. If the bot reports a missing/invalid token or owner ID, correct those Railway Variables and redeploy.
+
+**Important:** Do not create two separate Railway services for this setup unless you also configure shared storage. Separate services do not automatically share their local files. This one-service setup keeps the website and bot on the same persistent volume.
+
+Admin panel: `https://YOUR-RAILWAY-DOMAIN/admin`. Keep the admin password private.
+
+## 7. Put it online on a VPS
 
 For a public website and always-on bot, use a small Ubuntu VPS:
 1. Upload this entire folder to the VPS.
