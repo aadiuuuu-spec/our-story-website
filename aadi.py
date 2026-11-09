@@ -228,8 +228,8 @@ CHAPTERS = [
         "id": "scan",
         "title": "The One My Heart Keeps Choosing",
         "text": (
-            "If my heart had a favourite answer, it would always be you. ❤️\\n\\n"
-            "Not because every moment is perfect, but because even ordinary days feel special when they are shared with you.\\n\\n"
+            "If my heart had a favourite answer, it would always be you. ❤️\n\n"
+            "Not because every moment is perfect, but because even ordinary days feel special when they are shared with you.\n\n"
             "One name. A thousand little reasons. A lifetime of choosing you. ✨"
         ),
     },
@@ -278,9 +278,9 @@ CHAPTERS = [
         "id": "ending",
         "title": "My Favourite Person, My Forever",
         "text": (
-            "Among all the stories life could have written, I am grateful ours crossed paths. ❤️\\n\\n"
-            "You are my favourite hello, my safest thought, and a memory I never want to stop making.\\n\\n"
-            "No dramatic promises. Just a heart that keeps choosing you, in all the little ways, every day.\\n\\n"
+            "Among all the stories life could have written, I am grateful ours crossed paths. ❤️\n\n"
+            "You are my favourite hello, my safest thought, and a memory I never want to stop making.\n\n"
+            "No dramatic promises. Just a heart that keeps choosing you, in all the little ways, every day.\n\n"
             f"{GIRLFRIEND_NAME}, you make this story beautiful. ♾️"
         ),
     },
