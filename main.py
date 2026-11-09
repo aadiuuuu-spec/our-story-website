@@ -19,18 +19,18 @@ ADMIN_PASSWORD = os.getenv("WEB_ADMIN_PASSWORD", "")
 MAX_UPLOAD_MB = int(os.getenv("MAX_UPLOAD_MB", "30"))
 
 CHAPTERS = [
-    {"id": "place", "title": "The Place That Changed My Life Forever", "text": "The place that changed my life forever...\n\n📍 PLACE: “Shining Stars”"},
+    {"id": "place", "title": "Where Our Story Found Its Spark", "text": "Some places become more than a memory. They become a little piece of forever. ✨\n\n✦ SHINING STARS ✦\n\nA place, a moment, and a memory I will always hold close. ❤️"},
     {"id": "meeting", "title": "How Could We Meet?", "text": "Some stories begin with a hello. Ours became my favourite story. ❤️\n\n🎧 Here are the two voice notes from that special memory."},
     {"id": "yes", "title": "The Beautiful “Yes” I'll Never Forget", "text": "🗓 10th October · 7:17 PM\n\n“And my world changed forever.” ❤️"},
     {"id": "moments", "title": "The Moments That Became My Favourite Chapter", "text": "• Your love and caring\n• Staying up late to talk to you\n• Roasting each other 😂\n\nThese little moments mean the world to me."},
     {"id": "numbers", "title": "Our Love In Numbers", "text": "We could never explain our love in numbers...\n\nBecause some feelings are simply beyond counting. ♾️"},
     {"id": "eyes", "title": "Where Did I Get Lost?", "text": "Where did I get lost?\n\nIn your eyes. 👀❤️"},
     {"id": "stats", "title": "❤️ Love Statistics", "text": "Messages          1+\nLate Night Talks  Countless\nLaughter           ∞\nLove               ❤️ ∞\nMiss You           🥺 99999999999999+\nHugs               🤗 Loading...\nKisses             Loading...\nForever            ♾️ Confirmed"},
-    {"id": "scan", "title": "Scanning Heart Database...", "text": "[██████████] 100%\n\n❤️ RESULT ❤️\n\nCurrent Heart Owner: Samriddhi\nStatus: Permanent Access Granted ❤️\nNo Replacement Found."},
+    {"id": "scan", "title": "The One My Heart Keeps Choosing", "text": "If my heart had a favourite answer, it would always be you. ❤️\n\nNot because every moment is perfect, but because even ordinary days feel special when they are shared with you.\n\nOne name. A thousand little reasons. A lifetime of choosing you. ✨"},
     {"id": "speak", "title": "If Love Could Speak...", "text": "Even if I had a thousand lives,\nI would still search for you,\nFind you,\nFall for you,\nAnd choose you...\nAgain.\nAnd again.\nForever. ❤️"},
     {"id": "shayari", "title": "Final Shayari", "text": "Some moments fade like passing clouds,\nOurs quietly built a home.\nOut of all the paths the world could take,\nYours is the one I call my own.\nThrough every quiet sunrise and midnight turn,\nIn a crowded room or under an open sky,\nThe world can rush all it wants—\nMy calm will always begin with you. ✨"},
     {"id": "month", "title": "One Month Of Our Relationship ❤️", "text": "One month of our relationship will be completed. ❤️\n\nThank you for every smile.\nEvery memory.\nEvery moment.\nEvery piece of love.\n\nI love you.\nForever."},
-    {"id": "ending", "title": "Successfully Connected", "text": "Connection Lost...\n⬇️ Searching New Heart Owner...\n❌ No Better Person Found.\n⬇️ Reconnecting...\n\n██████████ 100%\n\n❤️ Successfully Connected To\n\nSamriddhi\n\nForever ♾️"},
+    {"id": "ending", "title": "My Favourite Person, My Forever", "text": "Among all the stories life could have written, I am grateful ours crossed paths. ❤️\n\nYou are my favourite hello, my safest thought, and a memory I never want to stop making.\n\nNo dramatic promises. Just a heart that keeps choosing you, in all the little ways, every day.\n\nSamriddhi, you make this story beautiful. ♾️"},
 ]
 SURPRISE_KEY = "__surprise__"
 
