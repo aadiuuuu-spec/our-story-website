@@ -417,34 +417,8 @@ async def show_chapter(
     chapter = CHAPTERS[index]
     markup = story_keyboard(index)
 
-    # The heart database chapter gets a live scanning animation.
-    if chapter["id"] == "scan":
-        progress_message = await context.bot.send_message(
-            chat_id,
-            "❤️ HEART DATABASE SCAN\n\nConnecting to heart database...\n"
-            "□□□□□□□□□□ 0%\n\nPlease wait...",
-        )
-        for percent in (7, 18, 25, 32, 46, 53, 68, 74, 89, 100):
-            filled = percent // 10
-            bar = "█" * filled + "□" * (10 - filled)
-            status = (
-                "Searching memories..." if percent < 40 else
-                "Checking heart signals..." if percent < 70 else
-                "Verifying permanent connection..." if percent < 100 else
-                "Scan complete!"
-            )
-            await asyncio.sleep(0.55)
-            await progress_message.edit_text(
-                f"❤️ HEART DATABASE SCAN\n\n{status}\n{bar} {percent}%"
-            )
-        final_text = (
-            f"❤️ RESULT ❤️\n\n"
-            f"Current Heart Owner: {GIRLFRIEND_NAME}\n"
-            "Status: Permanent Access Granted ❤️\n"
-            "No Replacement Found."
-        )
-        await reveal_page(chat_id, context, chapter["title"], final_text, index, markup, framed=False)
-    elif chapter["id"] == "stats":
+    # Show the rewritten love letter directly; no simulated database scan.
+    if chapter["id"] == "stats":
         progress_message = await context.bot.send_message(
             chat_id, story_header(chapter["title"]) + "Loading..."
         )
