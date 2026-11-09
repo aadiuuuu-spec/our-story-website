@@ -183,106 +183,62 @@ CHAPTERS = [
     {
         "id": "place",
         "title": "Where Our Story Found Its Spark",
-        "text": 'Some places become more than a memory. They become a little piece of forever. ✨\n\n✦ SHINING STARS ✦\n\nA place, a moment, and a memory I will always hold close. ❤️',
+        "text": "Some places are beautiful, but one place became special because it reminds me of you. ✨\n\nWhenever I think of that moment, I smile without even trying. Maybe it was just a place to everyone else — but to me, it became a page in our story.\n\nAnd if I could relive one little moment, I would happily find my way back to you. ❤️",
     },
     {
         "id": "meeting",
-        "title": "How Could We Meet?",
-        "text": "Some stories begin with a hello. Ours became my favourite story. ❤️\n\n🎧 Here are the two voice notes from that special memory.",
+        "title": "The Hello That Started Everything",
+        "text": "I still love thinking about how our paths crossed. One simple hello slowly became my favourite notification, my favourite conversation, and a feeling I never expected.\n\nI didn't know that meeting you would mean this much to me. Now I can't imagine this story without you, Samriddhi. 🦋",
     },
     {
         "id": "yes",
         "title": "The Beautiful “Yes” I'll Never Forget",
-        "text": "🗓 10th October · 7:17 PM\n\n“And my world changed forever.” ❤️",
+        "text": "10th October · 7:17 PM ❤️\n\nI remember that moment because it gave me a memory I will always keep close. Your yes made an ordinary evening feel unforgettable.\n\nIf I could save that second in a little glass box, I would — just so I could smile at it whenever I miss you. ✨",
     },
     {
         "id": "moments",
-        "title": "The Moments That Became My Favourite Chapter",
-        "text": "• Your love and caring\n• Staying up late to talk to you\n• Roasting each other 😂\n\nThese little moments mean the world to me.",
+        "title": "The Little Things I Adore About You",
+        "text": "It's not only the big moments that make me love you. It's the little things too:\n\n♡ The way you care.\n♡ Our late-night conversations.\n♡ Your random talks and sweet messages.\n♡ The way we tease and roast each other. 😂\n\nEvery small thing becomes special when it's with you. I love all these little pieces of us. ❤️",
     },
     {
         "id": "numbers",
-        "title": "Our Love In Numbers",
-        "text": "We could never explain our love in numbers...\n\nBecause some feelings are simply beyond counting. ♾️",
+        "title": "A Love Too Big for Numbers",
+        "text": "I could count our messages, our calls, and all the hours we've spent talking — but numbers could never measure what you mean to me.\n\nThere are a thousand reasons to smile, countless memories to make, and one person I want to keep choosing.\n\nThat person is you. ♾️",
     },
     {
         "id": "eyes",
         "title": "Where Did I Get Lost?",
-        "text": "Where did I get lost?\n\nIn your eyes. 👀❤️",
+        "text": "Where did I get lost?\n\nSomewhere between your eyes, your smile, and the way you make even an ordinary day feel softer.\n\nI wasn't looking for a perfect world. I just found someone who makes my world feel a little more beautiful. 👀❤️",
     },
     {
         "id": "stats",
-        "title": "❤️ Love Statistics",
-        "text": (
-            "Messages          1+\n"
-            "Late Night Talks  Countless\n"
-            "Laughter           ∞\n"
-            "Love               ❤️ ∞\n"
-            "Miss You           🥺 99999999999999+\n"
-            "Hugs               🤗 Loading...\n"
-            "Kisses             Loading...\n"
-            "Forever            ♾️ Confirmed"
-        ),
+        "title": "Our Little Love Statistics",
+        "text": "Late-night talks       Countless\nShared smiles           Too many to count\nRandom teasing          Always 😂\nMissing you             Every now and then… okay, always 🥺\nReasons to smile        Because of you\nHugs to give            Still waiting 🤗\nKisses to send          A whole lot 💋\nMy favourite person     Samriddhi\nMy love for you         ♾️\n\nThe best part of every statistic? It's ours. ❤️",
     },
     {
         "id": "scan",
         "title": "The One My Heart Keeps Choosing",
-        "text": (
-            "If my heart had a favourite answer, it would always be you. ❤️\n\n"
-            "Not because every moment is perfect, but because even ordinary days feel special when they are shared with you.\n\n"
-            "One name. A thousand little reasons. A lifetime of choosing you. ✨"
-        ),
+        "text": "If my heart had one favourite answer, it would always be you, Samriddhi. ❤️\n\nI don't love you because every day is perfect. I love you because even ordinary days feel special when I get to share them with you.\n\nI love your smile, your caring nature, your silly side, and all the little things that make you who you are.\n\nOne name. A thousand reasons. And a heart that keeps choosing you. ✨",
     },
     {
         "id": "speak",
         "title": "If Love Could Speak...",
-        "text": (
-            "Even if I had a thousand lives,\n"
-            "I would still search for you,\n"
-            "Find you,\n"
-            "Fall for you,\n"
-            "And choose you...\n"
-            "Again.\n"
-            "And again.\n"
-            "Forever. ❤️"
-        ),
+        "text": "If love could speak, it would tell you how often you cross my mind.\n\nIt would tell you that your smile stays with me long after our conversations end.\n\nIt would say: I may not have the perfect words every time, but my feelings are real.\n\nI love you today, I'll love you through tomorrow, and I'll keep choosing you in all the little ways. ❤️",
     },
     {
         "id": "shayari",
-        "title": "Final Shayari",
-        "text": (
-            "Some moments fade like passing clouds,\n"
-            "Ours quietly built a home.\n"
-            "Out of all the paths the world could take,\n"
-            "Yours is the one I call my own.\n"
-            "Through every quiet sunrise and midnight turn,\n"
-            "In a crowded room or under an open sky,\n"
-            "The world can rush all it wants—\n"
-            "My calm will always begin with you. ✨"
-        ),
+        "title": "A Few Lines, Straight From My Heart",
+        "text": "The world has a million stars above,\nBut you are the one I see.\nAmong a thousand little dreams,\nYou're the sweetest one to me.\n\nIf every heartbeat had a name,\nYour name would softly flow.\nAnd if you ever ask whom I love,\nIt's you — I hope you know. ❤️",
     },
     {
         "id": "month",
-        "title": "One Month Of Our Relationship ❤️",
-        "text": (
-            "One month of our relationship will be completed. ❤️\n\n"
-            "Thank you for every smile.\n"
-            "Every memory.\n"
-            "Every moment.\n"
-            "Every piece of love.\n\n"
-            "I love you.\n"
-            "Forever."
-        ),
+        "title": "One More Chapter, A Lifetime to Go",
+        "text": "One month is a small number, but the memories already mean so much to me. ❤️\n\nThank you for every smile, every late-night talk, every silly joke, and every moment you've made brighter.\n\nI know we still have so many pages left to write. I don't need them to be perfect — I just hope we keep filling them with honesty, laughter, care, and love.\n\nI love you, Samriddhi. Here's to our next chapter. ♡",
     },
     {
         "id": "ending",
         "title": "My Favourite Person, My Forever",
-        "text": (
-            "Among all the stories life could have written, I am grateful ours crossed paths. ❤️\n\n"
-            "You are my favourite hello, my safest thought, and a memory I never want to stop making.\n\n"
-            "No dramatic promises. Just a heart that keeps choosing you, in all the little ways, every day.\n\n"
-            f"{GIRLFRIEND_NAME}, you make this story beautiful. ♾️"
-        ),
+        "text": "Among all the stories life could have written, I'm grateful ours crossed paths. ❤️\n\nYou are my favourite hello, my sweetest thought, and the person behind so many of my smiles.\n\nI can't promise every day will be perfect, but I can promise to keep caring, keep listening, keep making memories, and keep choosing you.\n\nSamriddhi, I love you — more than these little lines can ever explain.\n\nForever starts with the moments we make together. ♾️",
     },
 ]
 
