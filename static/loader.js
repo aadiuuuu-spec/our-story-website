@@ -20,19 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
         loader.appendChild(petal);
     }
 
-    // Wait until the page is loaded, then reveal it
+    // Reveal promptly; remote fonts or slow third-party assets must not
+    // leave a blank or frozen-looking screen.
     const hideLoader = () => {
-        setTimeout(() => {
-            loader.classList.add("hide");
-        }, 700);
+        if (loader.dataset.hiding) return;
+        loader.dataset.hiding = "1";
+        setTimeout(() => loader.classList.add("hide"), 650);
     };
 
-    if (document.readyState === "complete") {
-        hideLoader();
-    } else {
-        window.addEventListener("load", hideLoader, { once: true });
-    }
-
-    // Safety fallback
-    setTimeout(hideLoader, 12000);
+    requestAnimationFrame(hideLoader);
+    setTimeout(hideLoader, 3500);
 });
