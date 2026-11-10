@@ -342,7 +342,7 @@ def admin_keyboard() -> InlineKeyboardMarkup:
     rows.append([InlineKeyboardButton("🗑 Clear Hug Stickers", callback_data="admin:hugs_clear")])
     surprise_count = len(load_media().get(SURPRISE_KEY, []))
     rows.append([InlineKeyboardButton(
-        f"💌 Add to Surprise: voice/text ({surprise_count})", callback_data="admin:surprise"
+        f"💌 Surprise: text/photo/video/audio/voice ({surprise_count})", callback_data="admin:surprise"
     )])
     rows.append([InlineKeyboardButton("🗑 Clear Surprise", callback_data="admin:surprise_clear")])
     rows.append([InlineKeyboardButton("🗑 Remove One Picture/Item", callback_data="admin:rm_menu")])
