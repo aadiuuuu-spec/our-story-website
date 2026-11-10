@@ -19,7 +19,7 @@ $("upload").onclick=async()=>{
   const f=$("file").files[0]; if(!f){$("panelStatus").textContent="Choose a file first.";return;}
   const fd=new FormData();fd.append("chapter_id",$("chapter").value);fd.append("caption",$("caption").value);fd.append("file",f);
   const r=await request("/api/admin/upload",{method:"POST",body:fd}); const d=await r.json();
-  $("panelStatus").textContent=r.ok?"Saved! It is now available on the website and Telegram bot.":(d.detail||"Upload failed.");
+  $("panelStatus").textContent=r.ok?( $("chapter").value==="__surprise__" ? "Surprise media saved! It will appear in A Little Surprise." : "Saved! It is now available on the website and Telegram bot."):(d.detail||"Upload failed.");\n  if(r.ok){$("file").value="";$("caption").value="";}
 };
 $("addText").onclick=async()=>{
   const fd=new FormData();fd.append("text",$("surpriseText").value);
